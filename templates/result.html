@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmify | Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url("/static/styles/assets/nt1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .result-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 40%; /* Reduced max-width */
+            width: 90%; /* Adjusted width */
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.7) 38%, rgba(211, 211, 21, 0.7) 100%);
+            padding: 20px; /* Reduced padding */
+            height: 80%;
+        }
+        h2 {
+            font-size: 50px; /* Reduced font size */
+            color: #333;
+            margin-bottom: 15px; /* Reduced margin */
+            margin-top: 10px; /* Reduced margin */
+        }
+        p {
+            font-size: 20px; /* Reduced font size */
+            color: #666;
+            margin-bottom: 15px; /* Reduced margin */
+        }
+        .prediction {
+            font-size: 30px; /* Reduced font size */
+            font-weight: bold;
+            color: #3e8e41;
+            background-color: white;
+            padding: 10px; /* Reduced padding */
+            border-radius: 8px;
+            display: inline-block;
+            width: 80%;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            margin-bottom: 15px; /* Reduced margin */
+            border: 1px solid #3e8e41; /* Add border to the prediction box */
+        }
+        .crop-image {
+            max-width: 100%; /* Make the image responsive */
+            height: 50%; /* Maintain aspect ratio */
+            border-radius: 10px;
+            margin-bottom: 15px; /* Reduced margin */
+            object-fit: contain; /* Ensures the image scales proportionally */
+            /* border: 1px solid #3e8e41; Add border to the image */
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px; /* Reduced margin */
+            text-decoration: none;
+            background-color: #3e8e41;
+            color: white;
+            padding: 10px 15px; /* Reduced padding */
+            border-radius: 15px;
+            font-size: 20px; /* Reduced font size */
+            transition: background-color 0.5s;
+        }
+        a:hover {
+            background-color: #59c75e;
+            color: black;
+        }
+        .result-container:hover {
+    opacity: 1;
+}
+    </style>
+</head>
+<body>
+    <div class="result-container" id="result-container" style="opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out;">
+        <h2>Prediction Result</h2>
+        <p>Based on the provided data, the recommended crop is:</p>
+        <div class="prediction" id="crop-name">
+            {{ prediction }}
+        </div>
+        <img id="crop-image" src="/static/styles/assets/crops/{{ prediction | lower }}.jpg" alt="{{ prediction }} Image" class="crop-image">
+        <a href="/home">Make Another Prediction</a>
+    </div>
+    
+
+    <script>
+        window.onload = function() {
+            const cropNameElement = document.getElementById('crop-name');
+            const cropImageElement = document.getElementById('crop-image');
+            const resultContainer = document.getElementById('result-container');
+    
+            // Get the width of the crop name container
+            const cropNameWidth = cropNameElement.offsetWidth;
+    
+            // Set the image width to match the crop name container
+            cropImageElement.style.width = cropNameWidth + 'px';
+    
+            // Trigger the fade-in effect for the result container
+            setTimeout(() => {
+                resultContainer.style.visibility = "visible";  // Make the container visible
+                resultContainer.style.opacity = "1";           // Trigger the opacity transition
+            }, 100); // Small delay before transition starts
+        };
+    </script>
+    
+</body>
+</html>

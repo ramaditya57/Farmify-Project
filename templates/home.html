@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Farmify | Crop Prediction</title>
+  <link rel="stylesheet" href="/static/styles/home.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;1,700&family=Manrope:wght@500&display=swap"
+    rel="stylesheet">
+  <script src="home.js"></script>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <video autoplay loop muted playsinline class="video-bg">
+    <source src="/static/styles/assets/background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="header" id="header">
+    <div class="header__top">
+      <div class="header__top__container">
+        <div class="header__column header__column--left">
+          <div class="header__item header__item--link header__item--current-link ">
+            <a class="header__item__link" href="/mainsec" style="color: white;">Home</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="/team"style="color: white;">Our Team</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="/contact"style="color: white;">Contact Us</a>
+          </div>
+          <!-- <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="form.html">Feedback Form</a>
+          </div> -->
+        </div>
+
+        <div class="header__column header__column--right">
+          <div class="header__item">
+            <a class="header__item__logo" href="/mainsec"><img src="/static/styles/assets/logo.png" class="logo"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form class="styled-form" action="/predict" method="POST">
+        <h2 class="form-title">Enter Crop Parameters</h2>
+        <div class="form-grid">
+            <!-- Row 1 -->
+            <div class="form-group">
+                <label for="N">N (Nitrogen):</label>
+                <input type="text" id="N" name="N" required>
+            </div>
+            <div class="form-group">
+                <label for="P">P (Phosphorus):</label>
+                <input type="text" id="P" name="P" required>
+            </div>
+            <div class="form-group">
+                <label for="K">K (Potassium):</label>
+                <input type="text" id="K" name="K" required>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="form-group full-width">
+                <label for="loc">Location:</label>
+                <input type="text" id="loc" name="loc" required>
+            </div>
+            
+            <!-- Row 3 -->
+            <div class="form-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="text" id="temperature" name="temperature" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="humidity">Humidity (%):</label>
+                <input type="text" id="humidity" name="humidity" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="ph">pH Level:</label>
+                <input type="text" id="ph" name="ph" required>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="form-group full-width">
+                <label for="rainfall">Rainfall (mm):</label>
+                <input type="text" id="rainfall" name="rainfall" required>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Predict Crop</button>
+    </form>
+</div>
+
+
+    {% if prediction_text %}
+    <div class="result">
+      <h2>Predicted Crop Label</h2>
+      <p>The predicted crop label is: <strong>{{ prediction }}</strong></p>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="leaf-container" id="leafContainer"></div>
+
+
+
+
+
+  <div id="footer" class="footer">
+    
+    <div class="footer__row">
+
+      &copy; Made with &#10084; by students of VIT Bhopal.
+    </div>
+  </div>
+    
+  <script>
+    setTimeout(() => {
+      const formDiv = document.getElementById("form-div");
+      formDiv.style.visibility = "visible"; // Make it visible
+      formDiv.style.opacity = "1"; // Trigger fade-in animation
+    }, 100);
+  </script>
+  <script>
+    const locationInput = document.getElementById('loc');
+    const temperatureInput = document.getElementById('temperature');
+    const humidityInput = document.getElementById('humidity');
+
+    locationInput.addEventListener('change', () => {
+        const apiKey = '54daffe49045708867ead85485a963c7'; // Replace with your OpenWeatherMap API key
+        const location = locationInput.value.trim();
+
+        if (location) {
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&appid=${apiKey}&units=metric`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    temperatureInput.value = data.main.temp;
+                    humidityInput.value = data.main.humidity;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                    temperatureInput.value = '';
+                    humidityInput.value = '';
+                    alert('Could not fetch weather data. Please check the location.');
+                });
+        } else {
+            temperatureInput.value = '';
+            humidityInput.value = '';
+        }
+    });
+</script>
+    
+</body>
+
+</html>

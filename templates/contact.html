@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmify | Contact Us</title>
+    <link rel="stylesheet" href="/static/styles/contact.css"> <!-- Link to external CSS -->
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="header" id="header">
+        <div class="header__top">
+            <div class="header__top__container">
+                <div class="header__column header__column--left">
+                    <div class="header__item header__item--link ">
+                        <a class="header__item__link" href="/mainsec" style="color: white;">Home</a>
+                    </div>
+                    <div class="header__item header__item--link  ">
+                        <a class="header__item__link" href="/team" style="color: white;">Our Team</a>
+                    </div>
+                    <div class="header__item header__item--link header__item--current-link ">
+                        <a class="header__item__link" href="/contact" style="color: white;">Contact Us</a>
+                    </div>
+                    <!-- <div class="header__item header__item--link  ">
+                <a class="header__item__link" href="form.html">Feedback Form</a>
+              </div> -->
+                </div>
+
+                <div class="header__column header__column--right">
+                    <div class="header__item">
+                        <a class="header__item__logo" href="/mainsec"><img src="/static/styles/assets/logo.png"
+                                class="logo"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2 class="heading">Contact Us</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label class="label">Name</label>
+                <input type="text" id="name" class="input-field" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label class="label">Email</label>
+                <input type="email" id="email" class="input-field" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label class="label">Your Message</label>
+                <textarea id="message" class="input-field" placeholder="Write your message" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="label">Rating</label>
+                <div class="rating-container" id="starRating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <input type="hidden" id="rating" value="0"> <!-- Stores the selected rating -->
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        <p id="responseMessage" class="response-message">Thank you for your feedback!</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="/static/scripts/contact.js"></script>
+</body>
+
+</html>

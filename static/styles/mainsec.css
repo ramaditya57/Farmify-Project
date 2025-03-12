@@ -1,0 +1,328 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.logo {
+    background-image: url('/static/styles/assets/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 200px;
+    height: 80px;
+    display: inline-block;
+    -webkit-filter: drop-shadow(2px 0 white) 
+  drop-shadow(-2px 0 white) 
+  drop-shadow(0 2px white) 
+  drop-shadow(0 -2px white);
+filter: drop-shadow(2px 0 white) 
+drop-shadow(-2px 0 white) 
+drop-shadow(0 2px white) 
+drop-shadow(0 -2px white);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #b2100d;
+}
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    position: relative;
+}
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black for readability */
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* Main Heading */
+.overlay h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FFD700; /* Golden Yellow for contrast */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Subheading */
+.overlay h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #FFFFFF; /* White for readability */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    margin-top: 10px;
+}
+
+
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+/* About Us Section */
+/* About Us Section */
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    background-color: #f8f8f8;
+}
+
+.about-container {
+    display: flex;
+    align-items: stretch; /* Ensures both elements stretch to match height */
+    gap: 50px; /* Space between image and text */
+    max-width: 1200px;
+    margin: auto;
+}
+
+.about-image {
+    width: 400px; /* Adjust width as needed */
+    height: auto; /* Let it adjust to match the content */
+    min-height: 350px; /* Ensures it doesn’t become too small */
+    background: url('/static/styles/assets/44.jpg') no-repeat center center/cover;
+    border-radius: 10px; /* Optional: Adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
+    flex: 1; /* Makes the image take up equal space as the text */
+}
+
+.about-content {
+    max-width: 600px;
+    flex: 1; /* Makes the content take up equal space as the image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the text vertically */
+}
+
+/* Importing Elegant Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@600&family=Open+Sans:wght@400&display=swap');
+
+.about-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #2c3e50; /* Darker shade for elegance */
+}
+
+.about-content h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #16a085; /* A fresh green for a nature-inspired look */
+}
+
+.about-content p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #555; /* Softer black for better readability */
+    line-height: 1.6; /* Adds better spacing for readability */
+}
+
+
+h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin: 50px 0; /* Adds spacing above and below */
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    color: #2c3e50; /* Dark shade for contrast */
+    position: relative;
+    display: block;
+}
+
+h2::after {
+    content: "";
+    width: 100px;
+    height: 4px;
+    background-color: #27ae60; /* Green underline effect */
+    display: block;
+    margin: 10px auto 0; /* Centers underline */
+    border-radius: 2px;
+}
+
+
+
+
+/* Services Section */
+.services {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f8f8;
+}
+
+.service-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Reduced gap for better alignment */
+    max-width: 1000px; /* Adjust width for better fit */
+    margin: auto;
+}
+
+.service-box {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 40%;  /* Decreased width */
+    height: 450px; /* Increased height */
+    padding-bottom: 20px;
+}
+
+/* Image Section */
+.service-image {
+    width: 100%;
+    height: 250px; /* Increased height */
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.crop-banner {
+    background-image: url('/static/styles/assets/crop-prediction.jpg');
+}
+
+.disease-banner {
+    background-image: url('/static/styles/assets/crop-disease.jpg');
+}
+
+.service-box h3 {
+    font-size: 22px;
+    margin-top: 15px;
+    color: #333;
+}
+
+.service-box p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+
+/* Style for Buttons */
+.service-buttons {
+    margin-top: 30px;
+}
+
+.service-buttons button {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    gap: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.predict {
+    background-color: #27ae60;
+    color: white;
+}
+
+.search {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.service-buttons button:hover {
+    opacity: 0.8;
+}
+
+
+

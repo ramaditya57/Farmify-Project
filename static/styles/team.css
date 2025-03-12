@@ -1,0 +1,272 @@
+html, body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  background: url("/static/styles/assets/team.jpg");
+  background-size: cover;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed; /* Fixes the background in place */
+}
+.divi .u-sheet-1 {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  position: relative;
+  margin: 0 auto;
+  width: 1140px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.divi .u-text-1 {
+  font-weight: 600;
+  font-size: 3.764705882352941rem;
+  line-height: 1.1;
+  color: #000000;
+  font-family: 'Manrope', sans-serif;
+  text-align: center;
+}
+
+.divi .u-image {
+  height: 274px;
+  margin: 0;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.divi .u-list-1 {
+  margin-top: -20px;
+  margin-bottom: 0;
+}
+
+/* 4 members in each row */
+.divi .u-repeater {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns per row */
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.divi .u-container-layout {
+  padding: 30px;
+  position: relative;
+  flex: 1;
+  max-width: 100%;
+  transition-duration: inherit;
+}
+
+.divi .u-container-style1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #dedbd2ab;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.divi .u-text-role {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #333333;
+  font-family: 'Manrope', sans-serif;
+}
+
+.divi .u-text-nm {
+  font-size: 1.88235rem;
+  text-transform: none;
+  font-weight: 400;
+  font-family: 'Manrope', sans-serif;
+  color: #b2100d;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .divi .u-repeater {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .divi .u-repeater {
+    grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
+  }
+}
+  .header {
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    width: 100%;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.header__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 80px;
+    background-color: #3333338a;
+}
+.header__top__container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1540px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+    position: relative;
+}
+.header__item--current-link a:after {
+    content: "";
+    width: 100%;
+    height: 4px;
+    background-color: #b2100d;
+    display: block;
+    position: absolute;
+    bottom: -29px;
+}
+
+.header__item--current-link a {
+    font-weight: 500;
+    position: relative;
+    color: #111;
+}
+.header__item--link a {
+    font-size: 18px;
+    line-height: 22px;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+.header__column {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+.header__column--left {
+    justify-content: flex-start;
+    flex-grow: 1;
+    flex-basis: 50%;
+    flex-shrink: 0;
+}
+.header__column--left .header__item {
+    padding-right: 40px;
+}
+.header__column--right {
+  justify-content: flex-end;
+  flex-grow: 1;
+  flex-basis: 50%;
+  flex-shrink: 0;
+}
+.header__column--right .header__item {
+  padding-left: 50px;
+}
+.logo{
+  height: 70px;
+  width: 100%;
+  -webkit-filter: drop-shadow(2px 0 white) 
+  drop-shadow(-2px 0 white) 
+  drop-shadow(0 2px white) 
+  drop-shadow(0 -2px white);
+filter: drop-shadow(2px 0 white) 
+drop-shadow(-2px 0 white) 
+drop-shadow(0 2px white) 
+drop-shadow(0 -2px white);
+}
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    color: #999999;
+    font-size: 14px;
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    padding: 0 15px 20px 15px;
+}
+.footer__row {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Container for each team card with perspective */
+.u-container-style1 {
+  position: relative;
+  perspective: 1000px; /* Enables the 3D effect */
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 15px;
+  transition: transform 1.0s ease;
+  border: none;
+}
+
+/* Inner content that will rotate */
+.u-container-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  /* transform: rotateY(180deg); */
+  transition: transform 1.6s ease-in-out;
+  backface-visibility: hidden;
+}
+
+/* Rotate back on hover to reveal content */
+.u-container-style1:hover .u-container-layout {
+  transform: rotateY(0);
+}
+
+/* Image Styling */
+.u-image {
+  width: 100%;
+  height: 274px;
+  object-fit: cover;
+  border-radius: 15px;
+  backface-visibility: hidden;
+}
+
+/* Info section hidden initially */
+.info {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  backface-visibility: hidden;
+}
+
+/* Show info on hover */
+.u-container-style1:hover .info {
+  opacity: 1;
+}
+
+/* Text styles */
+.u-text-role {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333333;
+  margin: 10px 0;
+}
+
+.u-text-nm {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #b2100d;
+  margin-top: 5px;
+  font-family: 'Manrope', sans-serif;
+}
+
+
+/* for rotation un-comment line 224 */
