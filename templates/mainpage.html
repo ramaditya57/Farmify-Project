@@ -11,11 +11,16 @@
         <a  class="logo" href="/mainsec"></a>
         <nav>
             <ul>
-                <li><a href="/mainsec">HOME</a></li>
+                <li><a href="#home">HOME</a></li>
                 <li><a href="#about">ABOUT US</a></li>
                 <li><a href="#services">SERVICES</a></li>
                 <li><a href="/contact">CONTACT</a></li>
-                <li><a href="/">LOGIN / SIGNUP</a></li>
+                <li class="dropdown">
+                    <button class="dropbtn" id="user-email">Loading...</button>
+                    <div class="dropdown-content">
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </li>                
             </ul>
         </nav>
     </header>
@@ -23,7 +28,7 @@
     <!-- Hero Section -->
     <!-- Hero Section -->
 <!-- Hero Section -->
-<section class="hero">
+<section id="home" class="hero">
     <div class="overlay">
         <h1>Farmify: Smarter Farming with AI</h1>
         <h2>Predict Crops & Detect Diseases with Precision!</h2>
@@ -83,5 +88,6 @@
     
     
     <script src="/static/scripts/slideshow.js"></script>
+    <script type="module" src="/static/scripts/signupId.js"></script>
 </body>
 </html>

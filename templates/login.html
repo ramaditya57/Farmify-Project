@@ -84,6 +84,21 @@
             <a href="{{ url_for('signup') }}" class="text-blue-500">SIGN UP</a>
         </div>
 
+        <script>
+            // Prevent navigating back to the previous page
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+
+            // Optional: Disable caching to force fresh login
+            window.onload = function () {
+                if (performance.navigation.type === 2) {
+                    location.reload();
+                }
+            };
+        </script>
+
         <script type="module" src="/static/scripts/login.js" defer></script>
     </div>
 </body>
