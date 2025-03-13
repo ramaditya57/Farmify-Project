@@ -83,8 +83,13 @@
     opacity: 1;
 }
     </style>
+    <link rel="stylesheet" href="static/styles/loader.css">
 </head>
 <body>
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+    </div>
+
     <div class="result-container" id="result-container" style="opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out;">
         <h2>Prediction Result</h2>
         <p>Based on the provided data, the recommended crop is:</p>
@@ -115,6 +120,7 @@
             }, 100); // Small delay before transition starts
         };
     </script>
+    <script src="static/scripts/loader.js"></script>
     
 </body>
 </html>

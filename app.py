@@ -27,26 +27,26 @@ with open('random_forest_model.pkl', 'rb') as model_file:
 
 @app.route('/')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', show_loader=True)
 @app.route('/signup')
 def signup():
-    return render_template('signup.html')
+    return render_template('signup.html', show_loader=True)
 
 @app.route('/mainsec')
 def mainsec():
-    return render_template('mainpage.html')
+    return render_template('mainpage.html', show_loader=True)
 # Make sure the filename matches exactly
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', show_loader=True)
 
 @app.route('/team')
 def team():
-    return render_template('team.html')
+    return render_template('team.html', show_loader=True)
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', show_loader=True)
 
 @app.route('/predict', methods=['POST'])
 def predict():
