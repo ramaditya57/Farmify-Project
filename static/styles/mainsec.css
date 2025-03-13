@@ -419,5 +419,13 @@ h2::after {
     opacity: 0.8;
 }
 
-
-
+/* Footer Styling */
+.footer {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    background-color: black;
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
+}

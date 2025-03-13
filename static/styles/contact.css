@@ -163,7 +163,7 @@ nav ul li a:hover {
   border-radius: 0.75rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 450px;
+  max-width: 650px;
   margin: 8rem auto 2rem;
   text-align: center;
 }
@@ -258,4 +258,15 @@ textarea.input-field {
   color: #10b981;
   font-weight: bold;
   display: none;
+}
+
+/* Footer Styling */
+.footer {
+  text-align: center;
+  color: white;
+  padding: 10px;
+  background-color: black;
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
 }
