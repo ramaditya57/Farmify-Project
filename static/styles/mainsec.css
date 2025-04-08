@@ -354,6 +354,13 @@ h2::after {
     width: 40%;  /* Decreased width */
     height: 450px; /* Increased height */
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-box:hover{
+    transform: scale(1.1);
+    transition-duration: 1.4s;
 }
 
 /* Image Section */

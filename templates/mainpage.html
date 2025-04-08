@@ -75,6 +75,9 @@
                 <div class="service-image crop-banner"></div>
                 <h3>Crop Prediction</h3>
                 <p>Recommendation about the type of crops to be cultivated which is best suited for the respective conditions.</p>
+                <div class="service-buttons">
+                    <a href="{{ url_for('home') }}"><button class="predict">CROP PREDICTION</button></a>
+                </div>
             </div>
             
             <!-- Crop Disease Detection -->
@@ -82,12 +85,10 @@
                 <div class="service-image disease-banner"></div>
                 <h3>Crop Disease Detection</h3>
                 <p>Predicting the name and causes of crop diseases and providing suggestions to cure them.</p>
+                <div class="service-buttons">
+                    <button class="search">CROP DISEASE DETECTION</button>
+                </div>
             </div>
-        </div>
-    
-        <div class="service-buttons">
-            <a href="{{ url_for('home') }}"><button class="predict">CROP PREDICTION</button></a>
-            <button class="search">CROP DISEASE DETECTION</button>
         </div>
     </section>
 
