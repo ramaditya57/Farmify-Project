@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Disease Expert</title>
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .history-container {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .user-message {
+            background-color: #e2f0ff;
+            border-radius: 18px 18px 0 18px;
+        }
+        .bot-message {
+            background-color: #f0f0f0;
+            border-radius: 18px 18px 18px 0;
+        }
+        .typing-indicator::after {
+            content: '...';
+            animation: typing 1s infinite;
+        }
+        @keyframes typing {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+            100% { content: '.'; }
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px;
+        }
+        .history-text {
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        .history-item:hover {
+            background-color: #f3f4f6;
+        }
+        .history-item.active {
+            background-color: #e2f0ff;
+            border-left: 4px solid #3b82f6;
+        }
+        .delete-btn {
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .delete-btn:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<header class="header-bar" id="header-bar">
+    <a class="farmify-logo" href="/mainsec"></a>
+    
+    <!-- Mobile menu toggle button -->
+    <button class="farmify-menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <nav class="farmify-nav" id="farmify-nav">
+        <ul>
+            <li><a href="http://127.0.0.1:5003/mainsec"><i class="fas fa-home"></i> HOME</a></li>
+            <li><a href="http://127.0.0.1:5003/team" class="nav-link"><i class="fas fa-users"></i> OUR TEAM</a></li>
+            <li><a href="http://127.0.0.1:5003/contact" class="nav-link"><i class="fas fa-envelope"></i> CONTACT</a></li>
+            <li><a href="#" class="nav-link active"><i class="fas fa-robot"></i> CHATBOT</a></li>
+            <li class="dropdown">
+                <button class="dropbtn" id="user-email">Welcome User</button>
+                <div class="dropdown-content">
+                    <a href="#" id="logout-btn"> Logout</a>
+                </div>
+            </li>                
+        </ul>
+    </nav>
+</header>
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen">
+        <!-- Chat History Sidebar -->
+        <div id="historySidebar" class="w-1/4 bg-white border-r border-gray-200 flex flex-col">
+            <div class="p-4 border-b border-gray-200">
+                <button id="newChatBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors w-full">
+                    New Chat
+                </button>
+            </div>
+            <div class="text-sm text-gray-700 font-semibold px-4 py-2 border-b border-gray-200">
+                Chat History
+            </div>
+            <div id="historyContainer" class="history-container flex-grow overflow-y-auto">
+                <!-- History items will be added here -->
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="flex-1 flex flex-col">
+            <header class="p-4 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-green-700">Agricultural Disease Expert</h1>
+                <p class="text-gray-600">Ask me questions about crop diseases, pests, and management techniques.</p>
+            </header>
+
+            <main class="flex-grow flex flex-col p-4">
+                <div id="chatContainer" class="chat-container flex-grow mb-4 overflow-y-auto">
+                    <div class="bot-message p-3 mb-4 max-w-3xl">
+                        <p>Hello! I'm your Agricultural Disease Expert. How can I help you today?</p>
+                    </div>
+                    <!-- Chat messages will appear here -->
+                </div>
+
+                <div class="flex mt-auto">
+                    <input 
+                        type="text" 
+                        id="questionInput" 
+                        class="flex-grow border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500" 
+                        placeholder="Ask a question about agricultural diseases..."
+                    >
+                    <button 
+                        id="askButton" 
+                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-r-lg transition-colors"
+                    >
+                        Send
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatContainer = document.getElementById('chatContainer');
+            const historyContainer = document.getElementById('historyContainer');
+            const questionInput = document.getElementById('questionInput');
+            const askButton = document.getElementById('askButton');
+            const newChatBtn = document.getElementById('newChatBtn');
+            
+            // Store all chat sessions
+            let allSessions = [];
+            
+            // Get or create session ID
+            let currentSessionId = '{{session_id}}';
+            
+            // Ask question when button is clicked
+            askButton.addEventListener('click', askQuestion);
+            
+            // Or when Enter key is pressed
+            questionInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    askQuestion();
+                }
+            });
+            
+            // Handle new chat button
+            newChatBtn.addEventListener('click', startNewChat);
+            
+            // Load all sessions from server when page loads
+            loadSessionsFromServer();
+            
+            function askQuestion() {
+                const question = questionInput.value.trim();
+                if (!question) return;
+                
+                // Add user message to chat
+                addMessageToChat('user', question);
+                questionInput.value = '';
+                
+                // Show typing indicator
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'bot-message p-3 mb-4 max-w-3xl typing-indicator';
+                typingIndicator.textContent = 'Thinking';
+                chatContainer.appendChild(typingIndicator);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Send question to server
+                fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                        session_id: currentSessionId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Remove typing indicator
+                    chatContainer.removeChild(typingIndicator);
+                    
+                    // Add bot response to chat
+                    if (data.error) {
+                        addMessageToChat('bot', `Error: ${data.error}`);
+                    } else {
+                        addMessageToChat('bot', data.answer);
+                        
+                        // Make sure this session is in our list
+                        if (!allSessions.includes(currentSessionId)) {
+                            allSessions.push(currentSessionId);
+                        }
+                        
+                        // Update chat preview in history sidebar
+                        updateHistoryPreview(currentSessionId, question);
+                    }
+                })
+                .catch(error => {
+                    // Remove typing indicator
+                    chatContainer.removeChild(typingIndicator);
+                    addMessageToChat('bot', `Error: ${error.message}`);
+                });
+            }
+            
+            function addMessageToChat(role, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = role === 'user' ? 'user-message p-3 mb-4 ml-auto max-w-3xl' : 'bot-message p-3 mb-4 max-w-3xl';
+                
+                // Handle multiline content
+                content.split('\n').forEach(line => {
+                    if (line.trim() !== '') {
+                        const p = document.createElement('p');
+                        p.textContent = line;
+                        messageDiv.appendChild(p);
+                    }
+                });
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function startNewChat() {
+                fetch('/new_chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    currentSessionId = data.session_id;
+                    
+                    // Add to our sessions list
+                    if (!allSessions.includes(currentSessionId)) {
+                        allSessions.push(currentSessionId);
+                    }
+                    
+                    // Update UI
+                    updateHistoryList();
+                    
+                    // Clear chat container
+                    chatContainer.innerHTML = '';
+                    addMessageToChat('bot', 'Hello! I\'m your Agricultural Disease Expert. How can I help you today?');
+                    
+                    // Add new chat to history sidebar with default text
+                    addChatToHistorySidebar(currentSessionId, 'New conversation');
+                })
+                .catch(error => {
+                    console.error('Error starting new chat:', error);
+                });
+            }
+            
+            function deleteChat(sessionId, event) {
+                // Stop the click event from bubbling up to the parent
+                event.stopPropagation();
+                
+                fetch('/delete_chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: sessionId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove session from our list
+                        allSessions = allSessions.filter(id => id !== sessionId);
+                        
+                        // Remove from sidebar
+                        const historyItem = document.querySelector(`.history-item[data-session-id="${sessionId}"]`);
+                        if (historyItem) {
+                            historyContainer.removeChild(historyItem);
+                        }
+                        
+                        // If we deleted the current session, start a new one
+                        if (sessionId === currentSessionId) {
+                            startNewChat();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting chat:', error);
+                });
+            }
+            
+            function loadCurrentChat() {
+                fetch('/get_history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSessionId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Clear chat container first
+                    chatContainer.innerHTML = '';
+                    
+                    if (data.history && data.history.length > 0) {
+                        // Populate with history
+                        data.history.forEach(msg => {
+                            addMessageToChat(msg.role === 'user' ? 'user' : 'bot', msg.content);
+                        });
+                        
+                        // Update preview in sidebar if this is an existing conversation
+                        const firstUserMsg = data.history.find(msg => msg.role === 'user');
+                        if (firstUserMsg) {
+                            updateHistoryPreview(currentSessionId, firstUserMsg.content);
+                        }
+                    } else {
+                        // Add welcome message if no history
+                        addMessageToChat('bot', 'Hello! I\'m your Agricultural Disease Expert. How can I help you today?');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading chat history:', error);
+                    addMessageToChat('bot', 'Hello! I\'m your Agricultural Disease Expert. How can I help you today?');
+                });
+            }
+            
+            function loadSessionsFromServer() {
+                fetch('/get_all_sessions')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.sessions && data.sessions.length > 0) {
+                        allSessions = data.sessions;
+                        updateHistoryList();
+                    } else {
+                        // If no sessions, make sure we have the current one
+                        allSessions = [currentSessionId];
+                        addChatToHistorySidebar(currentSessionId, 'New conversation');
+                    }
+                    
+                    // Load current chat content
+                    loadCurrentChat();
+                })
+                .catch(error => {
+                    console.error('Error loading sessions:', error);
+                    // Fall back to just the current session
+                    allSessions = [currentSessionId];
+                    addChatToHistorySidebar(currentSessionId, 'New conversation');
+                    loadCurrentChat();
+                });
+            }
+            
+            function updateHistoryList() {
+                // Clear history container
+                historyContainer.innerHTML = '';
+                
+                // Add history items for each session
+                allSessions.forEach(sessionId => {
+                    addChatToHistorySidebar(sessionId, 'Loading...');
+                    
+                    // Load preview for this session
+                    fetch('/get_history', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            session_id: sessionId
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.history && data.history.length > 0) {
+                            // Find first user message for preview
+                            const firstUserMsg = data.history.find(msg => msg.role === 'user');
+                            if (firstUserMsg) {
+                                updateHistoryPreview(sessionId, firstUserMsg.content);
+                            } else {
+                                updateHistoryPreview(sessionId, 'New conversation');
+                            }
+                        } else {
+                            updateHistoryPreview(sessionId, 'New conversation');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading history preview:', error);
+                        updateHistoryPreview(sessionId, 'Chat session');
+                    });
+                });
+            }
+            
+            function addChatToHistorySidebar(sessionId, previewText) {
+                // Remove existing item if it exists
+                const existingItem = document.querySelector(`.history-item[data-session-id="${sessionId}"]`);
+                if (existingItem) {
+                    historyContainer.removeChild(existingItem);
+                }
+                
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item ' + (sessionId === currentSessionId ? 'active' : '');
+                historyItem.dataset.sessionId = sessionId;
+                
+                // Create text element
+                const textSpan = document.createElement('span');
+                textSpan.className = 'history-text';
+                textSpan.textContent = previewText.length > 30 ? 
+                    previewText.substring(0, 30) + '...' : 
+                    previewText;
+                historyItem.appendChild(textSpan);
+                
+                // Create delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn text-red-500 hover:text-red-700';
+                deleteBtn.innerHTML = '×'; // Cross symbol
+                deleteBtn.title = 'Delete conversation';
+                deleteBtn.addEventListener('click', function(e) {
+                    deleteChat(sessionId, e);
+                });
+                historyItem.appendChild(deleteBtn);
+                
+                // Add click handler to the text part
+                textSpan.addEventListener('click', function() {
+                    if (sessionId !== currentSessionId) {
+                        // Update current session
+                        currentSessionId = sessionId;
+                        
+                        // Update active state in sidebar
+                        document.querySelectorAll('.history-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        historyItem.classList.add('active');
+                        
+                        // Load selected chat
+                        loadCurrentChat();
+                    }
+                });
+                
+                // Add to container (prepend to show newest first)
+                historyContainer.prepend(historyItem);
+            }
+            
+            function updateHistoryPreview(sessionId, previewText) {
+                addChatToHistorySidebar(sessionId, previewText);
+            }
+        });
+    </script>
+    <script type="module" src="/static/scripts/signupId.js"></script>
+</body>
+</html> make this chatgpt.html more good to look at and it doesnt overlap with the navbar

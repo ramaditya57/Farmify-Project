@@ -4,10 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farmify | Prediction Result</title>
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .header-bar {
+            width: 90%; /* Changed from 100% to account for the padding */
+        }
+        
+        /* Ensure proper container behavior */
+        .farmify-nav {
+            width: auto; /* Let it size naturally */
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Fix dropdown positioning */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%; /* Position relative to its parent */
+            background-color: white;
+            min-width: 140px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 1001; /* Higher than navbar */
+        }
+        
+        /* Mobile responsiveness fixes */
+        @media screen and (max-width: 768px) {
+            .header-bar {
+                width: 100%;
+                padding: 10px 5%;
+            }
+            
+            .farmify-nav {
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-in-out;
+            }
+            
+            /* Fix for the typo in the mobile dropdown class */
+            .dropdown-content.show {
+                display: block;
+            }
+        }
         body {
             font-family: 'Arial', sans-serif;
             background: url("/static/styles/assets/nt1.jpg");
+            padding-top: 50px;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
@@ -58,13 +113,13 @@
         }
         .crop-image {
             max-width: 100%; /* Make the image responsive */
-            height: 50%; /* Maintain aspect ratio */
+            height: auto; /* Adjust height automatically based on natural aspect ratio */
             border-radius: 10px;
             margin-bottom: 15px; /* Reduced margin */
             object-fit: contain; /* Ensures the image scales proportionally */
-            /* border: 1px solid #3e8e41; Add border to the image */
+            border: 1px solid #3e8e41; /* Curved border to match the prediction box */
         }
-        a {
+        .anchy {
             display: inline-block;
             margin-top: 20px; /* Reduced margin */
             text-decoration: none;
@@ -75,7 +130,7 @@
             font-size: 20px; /* Reduced font size */
             transition: background-color 0.5s;
         }
-        a:hover {
+        .anchy:hover {
             background-color: #59c75e;
             color: black;
         }
@@ -85,6 +140,30 @@
     </style>
     <link rel="stylesheet" href="static/styles/loader.css">
 </head>
+
+<header class="header-bar" id="header-bar">
+    <a class="farmify-logo" href="/mainsec"></a>
+    
+    <!-- Mobile menu toggle button -->
+    <button class="farmify-menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <nav class="farmify-nav" id="farmify-nav">
+        <ul>
+            <li><a href="/mainsec"><i class="fas fa-home"></i> HOME</a></li>
+            <li><a href="/team" class="nav-link"><i class="fas fa-users"></i> OUR TEAM</a></li>
+            <li><a href="/contact" class="nav-link"><i class="fas fa-envelope"></i> CONTACT</a></li>
+            <li><a href="http://127.0.0.1:5000/" class="nav-link"><i class="fas fa-robot"></i> CHATBOT</a></li>
+            <li class="dropdown">
+                <button class="dropbtn" id="user-email">Loading...</button>
+                <div class="dropdown-content">
+                    <a href="#" id="logout-btn"> Logout</a>
+                </div>
+            </li>                
+        </ul>
+    </nav>
+</header>
 <body>
     <div class="loader-container" id="loader">
         <div class="loader"></div>
@@ -97,7 +176,7 @@
             {{ prediction }}
         </div>
         <img id="crop-image" src="/static/styles/assets/crops/{{ prediction | lower }}.jpg" alt="{{ prediction }} Image" class="crop-image">
-        <a href="/home">Make Another Prediction</a>
+        <a href="/home" class="anchy">Make Another Prediction</a>
     </div>
     
 
@@ -120,7 +199,9 @@
             }, 100); // Small delay before transition starts
         };
     </script>
+    <script type="module" src="/static/scripts/signupId.js"></script>
     <script src="static/scripts/loader.js"></script>
+    <script src="static/scripts/navbar.js"></script>
     
 </body>
 </html>

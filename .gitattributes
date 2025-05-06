@@ -1,3 +1,0 @@
-path/to/large-file filter=lfs diff=lfs merge=lfs -text
-static/assets/background.mp4 filter=lfs diff=lfs merge=lfs -text
-static/styles/assets/background.mp4 filter=lfs diff=lfs merge=lfs -text

@@ -1,67 +1,81 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Debug log to ensure the script is running
-    console.log("Script loaded");
+document.addEventListener('DOMContentLoaded', function() {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let slideInterval;
 
-    // Get elements
-    const slides = document.querySelectorAll(".slide");
-    const prevButton = document.querySelector(".prev");
-    const nextButton = document.querySelector(".next");
+    // Function to show specific slide
+    function showSlide(index) {
+        // Remove active class from all slides
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Add active class to the current slide
+        slides[index].classList.add('active');
+        currentSlide = index;
+    }
+
+    // Function to go to next slide
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+
+    // Function to go to previous slide
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+    }
+
+    // Auto advance slides every 5 seconds
+    function startSlideShow() {
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    // Stop auto-advance when user interacts with slideshow
+    function pauseSlideShow() {
+        clearInterval(slideInterval);
+    }
+
+    // Resume slideshow after pause
+    function resumeSlideShow() {
+        pauseSlideShow();
+        startSlideShow();
+    }
+
+    // Event listeners for previous and next buttons
+    document.querySelector('.prev').addEventListener('click', function() {
+        prevSlide();
+        resumeSlideShow();
+    });
+
+    document.querySelector('.next').addEventListener('click', function() {
+        nextSlide();
+        resumeSlideShow();
+    });
+
+    // Pause slideshow when hovering over slideshow
+    document.querySelector('.slideshow-container').addEventListener('mouseenter', pauseSlideShow);
+    document.querySelector('.slideshow-container').addEventListener('mouseleave', startSlideShow);
+
+    // Start the slideshow
+    startSlideShow();
     
-    // Debug log to check if elements are found
-    console.log("Slides found:", slides.length);
-    console.log("Prev button found:", prevButton);
-    console.log("Next button found:", nextButton);
-
-    let currentIndex = 0;
-    let autoSlideInterval;
-
-    function changeSlide(direction) {
-        // Debug log
-        console.log("Changing slide, direction:", direction);
+    // Preload images for smoother transitions
+    function preloadImages() {
+        const imageUrls = [
+            '/static/styles/assets/image1.jpg',
+            '/static/styles/assets/image2.jpg',
+            '/static/styles/assets/image3.jpg',
+            '/static/styles/assets/image4.jpg'
+        ];
         
-        // Remove active class from current slide
-        slides[currentIndex].classList.remove("active");
-        
-        // Calculate new index
-        currentIndex = (currentIndex + direction + slides.length) % slides.length;
-        
-        // Add active class to new slide
-        slides[currentIndex].classList.add("active");
-        
-        // Debug log
-        console.log("New current index:", currentIndex);
+        imageUrls.forEach(url => {
+            const img = new Image();
+            img.src = url;
+        });
     }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(() => {
-            changeSlide(1);
-        }, 2500);
-    }
-
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        startAutoSlide();
-    }
-
-    // Add click event listeners
-    if (prevButton) {
-        prevButton.onclick = function(e) {
-            e.preventDefault();
-            console.log("Previous button clicked");
-            changeSlide(-1);
-            resetAutoSlide();
-        };
-    }
-
-    if (nextButton) {
-        nextButton.onclick = function(e) {
-            e.preventDefault();
-            console.log("Next button clicked");
-            changeSlide(1);
-            resetAutoSlide();
-        };
-    }
-
-    // Start the automatic slideshow
-    startAutoSlide();
+    
+    preloadImages();
 });

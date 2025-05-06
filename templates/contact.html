@@ -7,6 +7,8 @@
     <title>Farmify | Contact Us</title>
     <link rel="stylesheet" href="/static/styles/contact.css"> <!-- Link to external CSS -->
     <link rel="stylesheet" href="static/styles/loader.css">
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -14,17 +16,24 @@
         <div class="loader"></div>
     </div>
 
-    <header>
-        <a  class="logo" href="/mainsec"></a>
-        <nav>
+    <header class="header-bar" id="header-bar">
+        <a class="farmify-logo" href="/mainsec"></a>
+        
+        <!-- Mobile menu toggle button -->
+        <button class="farmify-menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="farmify-nav" id="farmify-nav">
             <ul>
-                <li><a href="/mainsec">HOME</a></li>
-                <li><a href="/team">OUR TEAM</a></li>
-                <li><a href="/contact">CONTACT</a></li>
+                <li><a href="/mainsec"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="/team" class="nav-link"><i class="fas fa-users"></i> OUR TEAM</a></li>
+                <li><a href="/contact" class="nav-link"><i class="fas fa-envelope"></i> CONTACT</a></li>
+                <li><a href="http://127.0.0.1:5000/" class="nav-link"><i class="fas fa-robot"></i> CHATBOT</a></li>
                 <li class="dropdown">
                     <button class="dropbtn" id="user-email">Loading...</button>
                     <div class="dropdown-content">
-                        <a href="#" id="logout-btn">Logout</a>
+                        <a href="#" id="logout-btn"> Logout</a>
                     </div>
                 </li>                
             </ul>
@@ -72,6 +81,8 @@
     <script src="/static/scripts/contact.js"></script>
     <script type="module" src="/static/scripts/signupId.js"></script>
     <script src="static/scripts/loader.js"></script>
+    <script src="static/scripts/navbar.js"></script>
+
 </body>
 
 </html>

@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmify | Main Page</title>
+    <title>Farmify | Smart Agriculture Solutions</title>
     <link rel="stylesheet" href="/static/styles/mainsec.css">
+    <link rel="stylesheet" href="/static/styles/navbar.css">
     <link rel="stylesheet" href="static/styles/loader.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="loader-container" id="loader">
         <div class="loader"></div>
     </div>
 
-    <header>
-        <a  class="logo" href="/mainsec"></a>
-        <nav>
+    <header class="header-bar" id="header-bar">
+        <a class="farmify-logo" href="/mainsec"></a>
+        
+        <!-- Mobile menu toggle button -->
+        <button class="farmify-menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="farmify-nav" id="farmify-nav">
             <ul>
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#about">ABOUT US</a></li>
-                <li><a href="#services">SERVICES</a></li>
-                <li><a href="/contact">CONTACT</a></li>
+                <li><a href="#home"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> ABOUT US</a></li>
+                <li><a href="#services"><i class="fas fa-leaf"></i> SERVICES</a></li>
+                <li><a href="/team" class="nav-link"><i class="fas fa-users"></i> OUR TEAM</a></li>
+                <li><a href="/contact" class="nav-link"><i class="fas fa-envelope"></i> CONTACT</a></li>
+                <li><a href="http://127.0.0.1:5000/" class="nav-link"><i class="fas fa-robot"></i> CHATBOT</a></li>
                 <li class="dropdown">
                     <button class="dropbtn" id="user-email">Loading...</button>
                     <div class="dropdown-content">
-                        <a href="#" id="logout-btn">Logout</a>
+                        <a href="#" id="logout-btn"> Logout</a>
                     </div>
                 </li>                
             </ul>
@@ -31,52 +42,45 @@
     </header>
 
     <!-- Hero Section -->
-    <!-- Hero Section -->
-<!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="overlay">
-        <h1>Farmify: Smarter Farming with AI</h1>
-        <h2>Predict Crops & Detect Diseases with Precision!</h2>
-    </div>
-    <div class="slideshow-container">
-        <img class="slide active" src="/static/styles/assets/image1.jpg" alt="Slide 1">
-        <img class="slide" src="/static/styles/assets/image2.jpg" alt="Slide 2">
-        <img class="slide" src="/static/styles/assets/image3.jpg" alt="Slide 3">
-        <img class="slide" src="/static/styles/assets/image4.jpg" alt="Slide 4">
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
-    </div>
-</section>
-
-
-
+    <section id="home" class="hero">
+        <div class="overlay">
+            <h1>Farmify: Smarter Farming with AI</h1>
+            <h2>Predict Crops & Detect Diseases with Precision!</h2>
+        </div>
+        <div class="slideshow-container">
+            <img class="slide active" src="/static/styles/assets/image1.jpg" alt="Slide 1">
+            <img class="slide" src="/static/styles/assets/image2.jpg" alt="Slide 2">
+            <img class="slide" src="/static/styles/assets/image3.jpg" alt="Slide 3">
+            <img class="slide" src="/static/styles/assets/image4.jpg" alt="Slide 4">
+            <button class="prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
 
     <!-- About Us Section -->
-    <!-- About Us Section -->
-<section id="about" class="about">
-    <div class="about-container">
-        <div class="about-image">
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-image"></div>
+            <div class="about-content">
+                <h2>Improving Agriculture, Improving Lives</h2>
+                <h3>Cultivating crops to make farmers increase profit.</h3>
+                <p>We believe in the power of agriculture to transform lives. By working directly with farmers, we're building stronger communities and ensuring a more secure and prosperous future for all.</p>
+                <p>Through innovation, sustainable practices, and cutting-edge technology, we aim to enhance crop productivity, reduce risks, and maximize farmers' profits. Our commitment is to empower farmers with data-driven insights, modern farming techniques, and smart solutions that pave the way for a greener, more resilient agricultural future.</p>
+            </div>
         </div>
-        <div class="about-content">
-            <h2>Improving Agriculture, Improving Lives</h2>
-            <h3>Cultivating crops to make farmers increase profit.</h3>
-            <p>We believe in the power of agriculture to transform lives. By working directly with farmers, we're building stronger communities and ensuring a more secure and prosperous future for all. Through innovation, sustainable practices, and cutting-edge technology, we aim to enhance crop productivity, reduce risks, and maximize farmers' profits. Our commitment is to empower farmers with data-driven insights, modern farming techniques, and smart solutions that pave the way for a greener, more resilient agricultural future.</p>
-        </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Services Section -->
-    <h2>Our Services</h2> 
+    <h2 class="services-title">Our Services</h2> 
     <section id="services" class="services">
         <div class="service-container">
             <!-- Crop Prediction -->
             <div class="service-box">
                 <div class="service-image crop-banner"></div>
                 <h3>Crop Prediction</h3>
-                <p>Recommendation about the type of crops to be cultivated which is best suited for the respective conditions.</p>
+                <p>Smart recommendations about the type of crops to be cultivated which is best suited for your specific soil conditions, climate, and regional factors.</p>
                 <div class="service-buttons">
-                    <a href="{{ url_for('home') }}"><button class="predict">CROP PREDICTION</button></a>
+                    <a href="{{ url_for('home') }}"><button class="predict"><i class="fas fa-seedling"></i> CROP PREDICTION</button></a>
                 </div>
             </div>
             
@@ -84,9 +88,9 @@
             <div class="service-box">
                 <div class="service-image disease-banner"></div>
                 <h3>Crop Disease Detection</h3>
-                <p>Predicting the name and causes of crop diseases and providing suggestions to cure them.</p>
+                <p>Advanced AI-powered detection of crop diseases, identifying causes and providing targeted suggestions to protect your harvest.</p>
                 <div class="service-buttons">
-                    <button class="search">CROP DISEASE DETECTION</button>
+                    <a href="{{ url_for('dis_pred') }}"><button class="search"><i class="fas fa-microscope"></i> DISEASE DETECTION</button></a>
                 </div>
             </div>
         </div>
@@ -94,12 +98,12 @@
 
     <!-- Footer -->
     <div id="footer" class="footer">
-        &copy; Made with &#10084; by students of VIT Bhopal.
+        &copy; 2025 Farmify | Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> by students of VIT Bhopal.
     </div>
-    
     
     <script src="/static/scripts/slideshow.js"></script>
     <script type="module" src="/static/scripts/signupId.js"></script>
     <script src="static/scripts/loader.js"></script>
+    <script src="static/scripts/navbar.js"></script>
 </body>
 </html>
