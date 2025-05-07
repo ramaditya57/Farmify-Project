@@ -8,3 +8,4 @@ tensorflow
 gunicorn
 uuid
 requests
+gdown

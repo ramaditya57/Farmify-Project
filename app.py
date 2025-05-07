@@ -9,6 +9,7 @@ import json
 import os
 import uuid
 import requests
+import gdown
 
 app = Flask(__name__)
 
@@ -35,18 +36,13 @@ if not os.path.exists(model_filename):
 
 
 h5_model_filename = 'model.h5'
-h5_model_url = 'https://drive.google.com/uc?export=download&id=1pnrWK0cIapAb-E16FSM4gp4lkH-aC7vO'
+h5_model_url = 'https://drive.google.com/uc?id=1pnrWK0cIapAb-E16FSM4gp4lkH-aC7vO'
 
 # Download the .h5 model file if it doesn't exist
 if not os.path.exists(h5_model_filename):
     print("Downloading Keras model from Google Drive...")
-    response = requests.get(h5_model_url)
-    if response.status_code == 200:
-        with open(h5_model_filename, 'wb') as f:
-            f.write(response.content)
-        print("Keras model downloaded successfully.")
-    else:
-        print("Failed to download Keras model. Status code:", response.status_code)
+    gdown.download(h5_model_url, h5_model_filename, quiet=False)
+    print("Keras model downloaded successfully.")
 
 # Load the model
 disease_model = tf.keras.models.load_model(h5_model_filename)
