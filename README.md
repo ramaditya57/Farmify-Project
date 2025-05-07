@@ -2,18 +2,20 @@
 Farmify addresses the core challenges of modern agriculture-inefficient crop selection, soil degradation, and crop losses due to disease-by combining advanced machine learning and deep learning techniques in a user-friendly web platform. It enables farmers to make data-driven decisions tailored to their unique soil and environmental conditions, resulting in increased productivity and sustainability.
 
 ### How Farmify Works
-1. Crop Recommendation System
+## 1. Crop Recommendation System:
 User Input: Farmers enter key soil parameters (Nitrogen, Phosphorus, Potassium, pH), along with climate data (temperature, humidity, rainfall).
 Data Preprocessing: The system normalizes and scales input data, handling missing values and encoding categorical variables to ensure robust model performance.
 Machine Learning Prediction: A Random Forest Classifier, trained on a dataset of 2,200+ diverse agricultural samples, analyzes the input to recommend the most suitable crop for the given conditions. The model achieves up to 98% training and 95% testing accuracy.
 Output: The recommended crop and its probability of success are displayed, enabling informed decision-making for optimal yield and resource use.
 
-2. Plant Disease Detection
+## 2. Plant Disease Detection:
+
 Image Upload: Farmers can upload images of crops or leaves showing potential disease symptoms.
 Deep Learning Analysis: A Convolutional Neural Network (CNN) processes the images to detect and classify plant diseases. The CNN is trained on thousands of labeled images, achieving 95% training and 90% testing accuracy.
 Results: The system identifies the disease (if present) and provides actionable treatment suggestions, helping farmers intervene early and minimize crop loss.
 
-3. AI Chatbot Integration
+## 3. AI Chatbot Integration:
+
 Natural Language Support: An AI-powered chatbot, built using Retrieval-Augmented Generation (RAG) and integrated with the HuggingFace API, answers agricultural queries in plain language.
 Image-Based Q&A: The chatbot can also analyze uploaded images using YOLOv8 for instant disease detection and advice.
 Contextual Assistance: The chatbot retrieves information from scientific sources to provide accurate, context-aware responses.
