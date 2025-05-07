@@ -67,6 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (user) {
             console.log("✅ User Logged In:", user.email);
             userEmailElement.textContent = user.email;
+
+            // Update chatbot link dynamically
+            const chatbotLink = document.querySelector("a.nav-link[href*='chatbot']");
+            if (chatbotLink) {
+                chatbotLink.href = `https://farmify-chatbot.onrender.com/?email=${encodeURIComponent(user.email)}`;
+            }
+            
         } else {
             console.warn("⚠️ No User Logged In. Redirecting to login...");
             window.location.href = "/";
