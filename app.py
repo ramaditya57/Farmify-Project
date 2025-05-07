@@ -7,6 +7,8 @@ from tensorflow.keras.preprocessing import image
 import pandas as pd
 import json
 import os
+import uuid
+import requests
 
 app = Flask(__name__)
 
@@ -67,6 +69,10 @@ def team():
 def contact():
     return render_template('contact.html', show_loader=True)
 
+@app.route('/chatbot')
+def contact():
+    return render_template('chatbot.html', show_loader=True)
+
 @app.route('/dis_pred')
 def dis_pred():
     return render_template('dis_pred.html', show_loader=True)
@@ -102,6 +108,66 @@ def dis_predict():
     finally:
         if os.path.exists(filepath):
             os.remove(filepath)
+
+# ==================== Chatbot ====================
+@app.route('/chatbot')
+def chatbot():
+    # Generate a session ID for the chatbot (if needed)
+    session_id = str(uuid.uuid4())
+    return render_template('chatbot.html', session_id=session_id)
+
+@app.route('/api/chat', methods=['POST'])
+def chat_proxy():
+    """
+    Proxy requests to the existing chatbot service
+    """
+    try:
+        # Get the request data
+        data = request.json
+        question = data.get('message', '')
+        session_id = data.get('session_id', str(uuid.uuid4()))
+        
+        # Forward the request to your existing chatbot service
+        response = requests.post(
+            'https://farmify-chatbot.onrender.com/ask',
+            json={'question': question, 'session_id': session_id},
+            headers={'Content-Type': 'application/json'}
+        )
+        
+        # Return the response from the chatbot service
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/new_chat', methods=['POST'])
+def new_chat_proxy():
+    """
+    Proxy new chat requests to the chatbot service
+    """
+    try:
+        response = requests.post(
+            'https://farmify-chatbot.onrender.com/new_chat',
+            json=request.json,
+            headers={'Content-Type': 'application/json'}
+        )
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/get_history', methods=['POST'])
+def get_history_proxy():
+    """
+    Proxy history requests to the chatbot service
+    """
+    try:
+        response = requests.post(
+            'https://farmify-chatbot.onrender.com/get_history',
+            json=request.json,
+            headers={'Content-Type': 'application/json'}
+        )
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # ==================== Run App ====================
 if __name__ == '__main__':

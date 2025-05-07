@@ -4,3 +4,7 @@ pandas
 scikit-learn
 requests
 pandas
+tensorflow
+gunicorn
+uuid
+requests
