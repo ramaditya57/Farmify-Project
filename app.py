@@ -34,6 +34,24 @@ if not os.path.exists(model_filename):
         print("Failed to download model. Status code:", response.status_code)
 
 
+h5_model_filename = 'model.h5'
+h5_model_url = 'https://drive.google.com/uc?export=download&id=1pnrWK0cIapAb-E16FSM4gp4lkH-aC7vO'
+
+# Download the .h5 model file if it doesn't exist
+if not os.path.exists(h5_model_filename):
+    print("Downloading Keras model from Google Drive...")
+    response = requests.get(h5_model_url)
+    if response.status_code == 200:
+        with open(h5_model_filename, 'wb') as f:
+            f.write(response.content)
+        print("Keras model downloaded successfully.")
+    else:
+        print("Failed to download Keras model. Status code:", response.status_code)
+
+# Load the model
+disease_model = tf.keras.models.load_model(h5_model_filename)
+
+
 # ==================== Crop Recommendation Setup ====================
 dataset = pd.read_csv('Crop_recommendation.csv')
 X = dataset.iloc[:, :-1].values
