@@ -16,6 +16,24 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+import os
+import requests
+
+model_filename = 'random_forest_model.pkl'
+model_url = 'https://drive.google.com/uc?export=download&id=1UbaCOLHOPts1jexD94X63ct0MlDb5Gqh'
+
+# Download the model file if it doesn't exist
+if not os.path.exists(model_filename):
+    print("Downloading model from Google Drive...")
+    response = requests.get(model_url)
+    if response.status_code == 200:
+        with open(model_filename, 'wb') as f:
+            f.write(response.content)
+        print("Model downloaded successfully.")
+    else:
+        print("Failed to download model. Status code:", response.status_code)
+
+
 # ==================== Crop Recommendation Setup ====================
 dataset = pd.read_csv('Crop_recommendation.csv')
 X = dataset.iloc[:, :-1].values
