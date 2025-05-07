@@ -102,7 +102,7 @@ def contact():
     return render_template('contact.html', show_loader=True)
 
 @app.route('/chatbot')
-def contact():
+def chatbot():
     return render_template('chatbot.html', show_loader=True)
 
 @app.route('/dis_pred')
