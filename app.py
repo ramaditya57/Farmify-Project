@@ -101,10 +101,6 @@ def team():
 def contact():
     return render_template('contact.html', show_loader=True)
 
-@app.route('/chatbot')
-def chatbot():
-    return render_template('chatbot.html', show_loader=True)
-
 @app.route('/dis_pred')
 def dis_pred():
     return render_template('dis_pred.html', show_loader=True)
@@ -142,11 +138,12 @@ def dis_predict():
             os.remove(filepath)
 
 # ==================== Chatbot ====================
+
 @app.route('/chatbot')
 def chatbot():
     # Generate a session ID for the chatbot (if needed)
     session_id = str(uuid.uuid4())
-    return render_template('chatbot.html', session_id=session_id)
+    return render_template('chatbot.html',show_loader=True, session_id=session_id)
 
 @app.route('/api/chat', methods=['POST'])
 def chat_proxy():
