@@ -4,13 +4,14 @@ import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopu
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBo7KC8DcHi3E49_LGf-N3SYYF0CUswmg8",
-    authDomain: "yowp-11792.firebaseapp.com",
-    projectId: "yowp-11792",
-    storageBucket: "yowp-11792.appspot.com",
-    messagingSenderId: "385733694346",
-    appId: "1:385733694346:web:38658c0e7b6002e9836e73"
-};
+    apiKey: "AIzaSyARwsPQOMNbrGVlIM6AJKHmg0mWDl445gU",
+    authDomain: "farmify-d901b.firebaseapp.com",
+    projectId: "farmify-d901b",
+    storageBucket: "farmify-d901b.firebasestorage.app",
+    messagingSenderId: "782437842701",
+    appId: "1:782437842701:web:af941448a8ad8ecb4aba44",
+    measurementId: "G-F2S0ZV5KGD"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
