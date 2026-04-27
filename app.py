@@ -81,6 +81,11 @@ def preprocess_image(img_path):
 def login():
     return render_template('login.html', show_loader=True)
 
+@app.route('/cron', methods=['GET'])
+def cron():
+    print("Cron ping received")
+    return jsonify({"status": "alive ✅"})
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html', show_loader=True)
